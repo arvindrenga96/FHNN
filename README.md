@@ -1,6 +1,6 @@
-# FHNN — Flow Hierarchical Neural Network
+# FHNN — Factorized Hierarchical Neural Network
 
-Streamflow forecasting on the [CAMELS-US](https://ral.ucar.edu/solutions/products/camels) dataset (531 basins) using a hierarchical encoder–decoder LSTM with label-conditioned decoding.
+Streamflow forecasting on the [CAMELS-US](https://ral.ucar.edu/solutions/products/camels) dataset (531 basins) using a factorized hierarchical encoder–decoder LSTM with label-conditioned decoding.
 
 ---
 
@@ -20,10 +20,6 @@ FHNN/
 │   ├── lstm_ar.ipynb / .sh            # Baseline: AR-LSTM
 │   ├── rrformer.ipynb / .sh           # Baseline: RRFormer
 │   └── tft.ipynb / .sh                # Baseline: Temporal Fusion Transformer
-└── ANALYZE/
-    ├── score.ipynb                    # Compute NSE/R² metrics from ensemble predictions
-    ├── plot.ipynb                     # Generate spatial maps and comparison figures
-    └── dump.ipynb                     # Scratch / exploratory analysis
 ```
 
 ---
@@ -44,7 +40,7 @@ Once the upstream numpy arrays exist, run `DATA/preprocessData.ipynb` to generat
 | `test_year` | `1995–2005` |
 | `window` | Lookback window = 365 days |
 | `context` | Context length = 365 days |
-| `forecast` | Forecast horizon = 1 day |
+| `forecast` | Forecast horizon = 7 days |
 
 ### Features
 
@@ -104,13 +100,22 @@ bash lstm_ar.sh                                 # Run AR-LSTM baseline
 
 Each model is run **5 independent times** (`inits = 5` in `config.py`). Final predictions are ensembled by **bagging** (averaging predictions across the 5 runs). Metrics (NSE, R²) are computed against the ensemble predictions.
 
-Results are stored under `RESULT_DIR` (configured in `config.py`). Analysis notebooks:
-
-- `ANALYZE/score.ipynb` — computes per-basin NSE and R² scores
-- `ANALYZE/plot.ipynb` — generates spatial maps and scatter plots
+Results are stored under `RESULT_DIR` (configured in `config.py`).
 
 ---
 
 ## Configuration
 
 All variables are centralized in `config.py`. Edit this file to change dataset paths, train/test splits, model dimensions, or training hyperparameters before running.
+
+---
+
+## Citations
+
+If you use this code, please cite the following papers:
+
+**ML Model (FHNN — this repo):**
+> Ghosh, R., Renganathan, A., McEachran, Z., Lindsay, K., Steinbach, M., Nieber, J., Duffy, C., & Kumar, V. (2025). Hierarchically Disentangled Recurrent Network for Factorizing System Dynamics of Multi-scale Systems: An application on Hydrological Systems. In *2025 IEEE International Conference on Data Mining (ICDM)*, pp. 1224–1233. IEEE. https://doi.org/10.1109/ICDM65498.2025.00131
+
+**Operational Forecasting Application:**
+> McEachran, Z., Ghosh, R., Renganathan, A., Sharma, S., Lindsay, K., Steinbach, M., et al. (2025). Knowledge-guided machine learning for operational flood forecasting. *Water Resources Research*, 61, e2024WR039064. https://doi.org/10.1029/2024WR039064
