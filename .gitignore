@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files (large)
+DATA/
+*.npz
+*.npy
+*.nc
+*.csv
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Saved model weights
+*.pt
+*.pth
+*.ckpt
+*.bin
+
+# Generated figures / analysis outputs
+ANALYZE/*.png
+ANALYZE/*.jpg
+ANALYZE/*.svg
+
+# Claude Code
+.claude/
+
+# Environment
+.env
+*.env
